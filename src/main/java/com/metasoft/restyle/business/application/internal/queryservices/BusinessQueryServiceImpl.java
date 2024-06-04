@@ -1,9 +1,9 @@
 package com.metasoft.restyle.business.application.internal.queryservices;
 
 import com.metasoft.restyle.business.infrastructure.persistance.jpa.BusinessRepository;
-import com.metasoft.restyle.business.infrastructure.persistance.jpa.domain.model.aggregates.Business;
-import com.metasoft.restyle.business.infrastructure.persistance.jpa.domain.model.queries.GetBusinessByIdQuery;
-import com.metasoft.restyle.business.infrastructure.persistance.jpa.domain.services.BusinessQueryService;
+import com.metasoft.restyle.business.domain.model.aggregates.Business;
+import com.metasoft.restyle.business.domain.model.queries.GetBusinessByIdQuery;
+import com.metasoft.restyle.business.domain.services.BusinessQueryService;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;

@@ -1,9 +1,9 @@
 package com.metasoft.restyle.business.application.internal.commandservices;
 
 import com.metasoft.restyle.business.infrastructure.persistance.jpa.BusinessRepository;
-import com.metasoft.restyle.business.infrastructure.persistance.jpa.domain.model.aggregates.Business;
-import com.metasoft.restyle.business.infrastructure.persistance.jpa.domain.model.commands.CreateBusinessCommand;
-import com.metasoft.restyle.business.infrastructure.persistance.jpa.domain.services.BusinessCommandService;
+import com.metasoft.restyle.business.domain.model.aggregates.Business;
+import com.metasoft.restyle.business.domain.model.commands.CreateBusinessCommand;
+import com.metasoft.restyle.business.domain.services.BusinessCommandService;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
@@ -19,7 +19,7 @@ public class BusinessCommandServiceImpl implements BusinessCommandService {
 
     @Override
     public Optional<Business> handle(CreateBusinessCommand command) {
-        if (businessRepository.existsByBusinessName(command.name())) {
+        if (businessRepository.existsByName(command.name())) {
             throw new IllegalArgumentException("Business with same name already exists");
         }
         var business = new Business(command);

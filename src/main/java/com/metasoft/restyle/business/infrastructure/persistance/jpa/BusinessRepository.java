@@ -1,16 +1,15 @@
 package com.metasoft.restyle.business.infrastructure.persistance.jpa;
 
-import com.metasoft.restyle.business.infrastructure.persistance.jpa.domain.model.aggregates.Business;
+import com.metasoft.restyle.business.domain.model.aggregates.Business;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
 
-import java.util.List;
 import java.util.Optional;
 
+@Repository
 public interface BusinessRepository extends JpaRepository<Business, Long> {
 
-    List<Business> findAllByBusinessName(String businessName);
+    boolean existsByName(String name);
 
-    boolean existsByBusinessName(String businessName);
-
-    Optional<Business> findByBusinessName(String businessName);
+    Optional<Business> findById(Long id);
 }

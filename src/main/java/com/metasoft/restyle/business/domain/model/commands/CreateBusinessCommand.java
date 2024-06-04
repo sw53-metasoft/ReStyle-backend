@@ -1,4 +1,4 @@
-package com.metasoft.restyle.business.infrastructure.persistance.jpa.domain.model.commands;
+package com.metasoft.restyle.business.domain.model.commands;
 
 public record CreateBusinessCommand(String name, String image, String expertise, String address, String city, String description, Integer remodelerId) {
     public CreateBusinessCommand{
@@ -17,8 +17,8 @@ public record CreateBusinessCommand(String name, String image, String expertise,
         if (description == null || description.isBlank()) {
             throw new IllegalArgumentException("description cannot be null or empty");
         }
-        if (remodelerId == null || remodelerId <= 0) {
-            throw new IllegalArgumentException("remodelerId cannot be null or less than 0");
+        if (remodelerId == null) {
+            throw new IllegalArgumentException("remodelerId cannot be null");
         }
     }
 

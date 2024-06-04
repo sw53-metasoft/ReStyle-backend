@@ -1,9 +1,9 @@
 package com.metasoft.restyle.business.interfaces.rest;
 
-import com.metasoft.restyle.business.infrastructure.persistance.jpa.domain.model.aggregates.Business;
-import com.metasoft.restyle.business.infrastructure.persistance.jpa.domain.model.queries.GetBusinessByIdQuery;
-import com.metasoft.restyle.business.infrastructure.persistance.jpa.domain.services.BusinessCommandService;
-import com.metasoft.restyle.business.infrastructure.persistance.jpa.domain.services.BusinessQueryService;
+import com.metasoft.restyle.business.domain.model.aggregates.Business;
+import com.metasoft.restyle.business.domain.model.queries.GetBusinessByIdQuery;
+import com.metasoft.restyle.business.domain.services.BusinessCommandService;
+import com.metasoft.restyle.business.domain.services.BusinessQueryService;
 import com.metasoft.restyle.business.interfaces.rest.resources.BusinessResource;
 import com.metasoft.restyle.business.interfaces.rest.resources.CreateBusinessResource;
 import com.metasoft.restyle.business.interfaces.rest.transform.BusinessResourceFromEntityAssembler;

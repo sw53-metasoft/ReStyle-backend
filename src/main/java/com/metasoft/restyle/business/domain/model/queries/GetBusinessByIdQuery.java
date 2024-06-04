@@ -1,4 +1,4 @@
-package com.metasoft.restyle.business.infrastructure.persistance.jpa.domain.model.queries;
+package com.metasoft.restyle.business.domain.model.queries;
 
 public record GetBusinessByIdQuery(Long id) {
     public GetBusinessByIdQuery {
