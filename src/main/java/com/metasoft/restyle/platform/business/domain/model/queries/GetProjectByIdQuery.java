@@ -1,7 +1,7 @@
 package com.metasoft.restyle.platform.business.domain.model.queries;
 
-public record GetBusinessByIdQuery(Long id) {
-    public GetBusinessByIdQuery {
+public record GetProjectByIdQuery(Long id) {
+    public GetProjectByIdQuery {
         if (id == null) {
             throw new IllegalArgumentException("Id cannot be null");
         }

@@ -1,15 +1,17 @@
 package com.metasoft.restyle.platform.business.domain.model.aggregates;
 
-import com.metasoft.restyle.platform.business.domain.model.commands.CreateBusinessCommand;
+import com.metasoft.restyle.platform.business.domain.model.commands.CreateProjectCommand;
 import jakarta.persistence.*;
 import lombok.Getter;
 import org.springframework.data.domain.AbstractAggregateRoot;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
+import java.util.Date;
+
 @Getter
 @Entity
 @EntityListeners(AuditingEntityListener.class)
-public class Business  extends AbstractAggregateRoot<Business> {
+public class Project extends AbstractAggregateRoot<Project> {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -18,33 +20,33 @@ public class Business  extends AbstractAggregateRoot<Business> {
     @Column(nullable = false)
     private String name;
 
+    @Column(nullable = false)
     private String image;
-
-    @Column(nullable = false)
-    private String expertise;
-
-    @Column(nullable = false)
-    private String address;
-
-    @Column(nullable = false)
-    private String city;
 
     @Column(nullable = false)
     private String description;
 
     @Column(nullable = false)
-    private Integer remodelerId;
+    private Integer businessId;
 
-    protected Business(){}
+    @Column(nullable = false)
+    private Integer contractorId;
 
-    public Business(CreateBusinessCommand command){
+    @Column(nullable = false)
+    private Date startDate;
+
+    @Column(nullable = false)
+    private Date finishDate;
+
+    protected Project(){}
+
+    public Project(CreateProjectCommand command){
         this.name = command.name();
         this.image = command.image();
-        this.expertise = command.expertise();
-        this.address = command.address();
-        this.city = command.city();
         this.description = command.description();
-        this.remodelerId = command.remodelerId();
+        this.businessId = command.businessId();
+        this.contractorId = command.contractorId();
+        this.startDate = command.startDate();
+        this.finishDate = command.finishDate();
     }
-
 }
