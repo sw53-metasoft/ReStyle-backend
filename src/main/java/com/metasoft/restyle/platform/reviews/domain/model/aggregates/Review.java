@@ -36,11 +36,11 @@ public class Review extends AbstractAggregateRoot<Review> {
     @Getter //image url of the review
     private String image;
 
-    public Review(ContractorId contractorId, ProjectId projectId, String duration, Rating rating, String comment, String image) {
-        this.contractorId = contractorId;
-        this.projectId = projectId;
+    public Review(Integer contractorId, Integer projectId, String duration, Integer rating, String comment, String image) {
+        this.contractorId = new ContractorId(contractorId);
+        this.projectId = new ProjectId(projectId);
         this.duration = duration;
-        this.rating = rating;
+        this.rating = new Rating(rating);
         this.comment = comment;
         this.image = image;
     }
@@ -68,4 +68,7 @@ public class Review extends AbstractAggregateRoot<Review> {
         return projectId.getProjectId();
     }
 
+    public Integer getRating() {
+        return rating.getRating();
+    }
 }
