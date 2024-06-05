@@ -24,6 +24,9 @@ public class Profile extends AuditableAbstractAggregateRoot<Profile> {
     private EmailAddress email;
 
     @Getter
+    private String password;
+
+    @Getter
     private String type;
 
     @Embedded
@@ -35,8 +38,9 @@ public class Profile extends AuditableAbstractAggregateRoot<Profile> {
     @LastModifiedDate
     private Date updatedAt;
 
-    public Profile(String email, String type, String firstName, String paternalSurname, String maternalSurname) {
+    public Profile(String email, String password, String type, String firstName, String paternalSurname, String maternalSurname) {
         this.email = new EmailAddress(email);
+        this.password = password;
         this.type = type;
         this.name = new PersonName(firstName, paternalSurname, maternalSurname);
     }

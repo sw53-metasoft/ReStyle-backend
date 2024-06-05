@@ -21,7 +21,7 @@ public class ProfileCommandServiceImpl implements ProfileCommandService {
         profileRepository.findByEmail(emailAddress).map(profile -> {
             throw new IllegalArgumentException("Profile with email " + command.email() + " already exists");
         });
-        var profile = new Profile(command.email(), command.typeUser(), command.firstName(), command.paternalSurname(), command.maternalSurname());
+        var profile = new Profile(command.email(), command.password(),command.typeUser(), command.firstName(), command.paternalSurname(), command.maternalSurname());
         profileRepository.save(profile);
         return profile.getId();
     }
