@@ -8,6 +8,7 @@ public class ProfileResourceFromEntityAssembler {
         return new ProfileResource(
                 entity.getId(),
                 entity.getEmailAddress(),
+                entity.getPassword(),
                 entity.getType(),
                 entity.getFullName()
         );
