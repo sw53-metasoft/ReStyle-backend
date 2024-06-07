@@ -1,6 +1,7 @@
 package com.metasoft.restyle.platform.business.interfaces.rest;
 
 import com.metasoft.restyle.platform.business.domain.model.aggregates.Business;
+import com.metasoft.restyle.platform.business.domain.model.queries.GetAllBusinessesQuery;
 import com.metasoft.restyle.platform.business.domain.model.queries.GetBusinessByIdQuery;
 import com.metasoft.restyle.platform.business.domain.services.BusinessCommandService;
 import com.metasoft.restyle.platform.business.domain.services.BusinessQueryService;
@@ -11,6 +12,7 @@ import com.metasoft.restyle.platform.business.interfaces.rest.transform.CreateBu
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.Optional;
 
 import static org.springframework.http.HttpStatus.CREATED;
@@ -26,6 +28,14 @@ public class BusinessesController {
     public BusinessesController(BusinessCommandService businessCommandService, BusinessQueryService businessQueryService) {
         this.businessCommandService = businessCommandService;
         this.businessQueryService = businessQueryService;
+    }
+
+    @GetMapping
+    public ResponseEntity<List<BusinessResource>> getAllBusinesses(){
+        var getAllBusinessesQuery = new GetAllBusinessesQuery();
+        var businesses = businessQueryService.handle(getAllBusinessesQuery);
+        var businessResources = businesses.stream().map(BusinessResourceFromEntityAssembler::toResourceFromEntity).toList();
+        return ResponseEntity.ok(businessResources);
     }
 
     @PostMapping
