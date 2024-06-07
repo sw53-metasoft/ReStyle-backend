@@ -30,6 +30,7 @@ public class BusinessesController {
         this.businessQueryService = businessQueryService;
     }
 
+    //get all businesses
     @GetMapping
     public ResponseEntity<List<BusinessResource>> getAllBusinesses(){
         var getAllBusinessesQuery = new GetAllBusinessesQuery();
