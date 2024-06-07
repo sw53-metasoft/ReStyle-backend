@@ -5,10 +5,12 @@ import com.metasoft.restyle.platform.project.domain.model.commands.CreateProject
 import com.metasoft.restyle.platform.project.domain.services.ProjectCommandService;
 import com.metasoft.restyle.platform.project.infrastructure.persistance.jpa.ProjectRepository;
 import org.springframework.stereotype.Service;
+import org.springframework.context.annotation.Primary;
 
 import java.util.Optional;
 
-@Service
+@Service("com.metasoft.restyle.platform.project.application.internal.commandservices.ProjectCommandServiceImpl")
+@Primary
 public class ProjectCommandServiceImpl implements ProjectCommandService {
 
     private final ProjectRepository projectRepository;

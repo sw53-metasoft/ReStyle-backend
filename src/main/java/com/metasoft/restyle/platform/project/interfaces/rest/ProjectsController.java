@@ -11,6 +11,7 @@ import com.metasoft.restyle.platform.project.interfaces.rest.transform.CreatePro
 import com.metasoft.restyle.platform.project.interfaces.rest.transform.ProjectResourceFromEntityAssembler;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.context.annotation.Primary;
 
 import java.util.List;
 import java.util.Map;
@@ -18,8 +19,9 @@ import java.util.Optional;
 
 import static org.springframework.http.HttpStatus.CREATED;
 
-@RestController
+@RestController("com.metasoft.restyle.platform.project.interfaces.rest.ProjectsController")
 @RequestMapping("/api/v1/projects")
+@Primary
 public class ProjectsController {
 
     private final ProjectCommandService projectCommandService;

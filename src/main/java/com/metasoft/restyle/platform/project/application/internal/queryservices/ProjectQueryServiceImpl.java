@@ -6,11 +6,13 @@ import com.metasoft.restyle.platform.project.domain.model.queries.GetProjectById
 import com.metasoft.restyle.platform.project.domain.services.ProjectQueryService;
 import com.metasoft.restyle.platform.project.infrastructure.persistance.jpa.ProjectRepository;
 import org.springframework.stereotype.Service;
+import org.springframework.context.annotation.Primary;
 
 import java.util.List;
 import java.util.Optional;
 
-@Service
+@Service("com.metasoft.restyle.platform.project.application.internal.queryservices.ProjectQueryServiceImpl")
+@Primary
 public class ProjectQueryServiceImpl implements ProjectQueryService {
 
     private final ProjectRepository projectRepository;
