@@ -1,6 +1,5 @@
 package com.metasoft.restyle.platform.information.profiles.domain.model.aggregates;
 
-import com.metasoft.restyle.platform.information.profiles.domain.model.valueobjects.Phone;
 import com.metasoft.restyle.platform.profiles.domain.model.aggregates.Profile;
 import com.metasoft.restyle.platform.shared.domain.model.aggregates.AuditableAbstractAggregateRoot;
 import jakarta.persistence.*;
@@ -25,30 +24,25 @@ public class Remodeler extends AuditableAbstractAggregateRoot<Remodeler> {
     private Profile profile;
 
     @Getter
-    private Phone phoneNumber;
+    private String phone;
 
     @Getter
     private String description;
 
     @Getter
-    private String SubscriptionType;
+    private String subscription;
 
 
     public Remodeler() {
     }
 
-    public Remodeler(String description, Long phoneNumber, String subscriptionType) {
+    public Remodeler(String description, String phone, String subscription) {
         this.description = description;
-        this.SubscriptionType = subscriptionType;
-        this.phoneNumber = new Phone(phoneNumber);
+        this.subscription = subscription;
+        this.phone = phone;
     }
 
-    public Remodeler(String description, Object o) {
-        super();
-    }
-
-    public Long getFormattedPhoneNumber() {
-        return this.phoneNumber.getNumber();
+    public Remodeler(String description, String phone) {
     }
 
 }

@@ -18,7 +18,7 @@ public class ContractorCommandServiceImpl implements ContractorCommandService {
 
     @Override
     public Long handle(CreateContractorCommand command) {
-        var contractor = new Contractor(command.description(), command.PhoneNumber());
+        var contractor = new Contractor(command.description(), command.phone());
         contractorRepository.save(contractor);
         return contractor.getId();
     }

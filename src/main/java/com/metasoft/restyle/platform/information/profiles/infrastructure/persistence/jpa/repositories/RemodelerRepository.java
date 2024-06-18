@@ -10,8 +10,8 @@ import java.util.Optional;
 
 @Repository
 public interface RemodelerRepository extends JpaRepository<Remodeler, Long> {
-    Optional<Remodeler> findByPhoneNumber(Long phoneNumber);
-    boolean existsByPhoneNumber(Long phoneNumber);
+    Optional<Remodeler> findByPhone(String phone);
+    //boolean existsByPhone(String phone);
 
 }
 

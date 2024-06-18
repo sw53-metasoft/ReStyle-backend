@@ -1,6 +1,5 @@
 package com.metasoft.restyle.platform.information.profiles.domain.model.aggregates;
 
-import com.metasoft.restyle.platform.information.profiles.domain.model.valueobjects.Phone;
 import com.metasoft.restyle.platform.profiles.domain.model.aggregates.Profile;
 import com.metasoft.restyle.platform.shared.domain.model.aggregates.AuditableAbstractAggregateRoot;
 import jakarta.persistence.*;
@@ -23,24 +22,18 @@ public class Contractor extends AuditableAbstractAggregateRoot<Contractor> {
     private Profile profile;
 
     @Getter
-    @Column(name = "phone")
-    private Phone phoneNumber;
+    private String phone;
 
 
     @Getter
     private String description;
 
 
-
-    public Contractor(String description, Long number) {
+    public Contractor(String description, String phone) {
         this.description = description;
-        this.phoneNumber = new Phone(number);
+        this.phone = phone;
     }
 
     public Contractor() {}
-
-    public Long getFormattedPhoneNumber() {
-        return this.phoneNumber.getNumber();
-    }
 
 }

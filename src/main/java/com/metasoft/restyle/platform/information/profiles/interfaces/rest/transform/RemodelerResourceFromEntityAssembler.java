@@ -9,8 +9,8 @@ public class RemodelerResourceFromEntityAssembler {
             return new RemodelerResource(
                     remodeler.getId(),
                     remodeler.getDescription(),
-                    remodeler.getFormattedPhoneNumber(),
-                    remodeler.getSubscriptionType()
+                    remodeler.getPhone(),
+                    remodeler.getSubscription()
             );
         }
 }

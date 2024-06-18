@@ -7,7 +7,7 @@ public class CreateRemodelerCommandFromResourceAssembler {
     public static CreateRemodelerCommand toCommandFromResource(CreateRemodelerResource resource){
         return new CreateRemodelerCommand(
                 resource.description(),
-                resource.phoneNumber(),
+                resource.phone(),
                 resource.subscription()
         );
     }

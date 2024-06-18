@@ -8,7 +8,7 @@ import java.util.List;
 import java.util.Optional;
 
 public interface ContractorQueryService {
-    boolean existsByPhoneNumber(String phoneNumber);
+    //boolean existsByPhone(String phone);
 
     List<Contractor> handle(GetAllContractorQuery query);
     Optional<Contractor> handle(GetContractorByIdQuery query);

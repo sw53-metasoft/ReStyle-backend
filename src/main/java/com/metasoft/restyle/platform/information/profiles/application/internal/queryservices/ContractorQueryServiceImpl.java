@@ -19,11 +19,11 @@ public class ContractorQueryServiceImpl implements ContractorQueryService {
         this.contractorRepository = contractorRepository;
     }
 
-    @Override
-    public boolean existsByPhoneNumber(String phoneNumber) {
+    /*@Override
+    public boolean existsByPhoneNumber(String phone) {
         //Verificar si el número de telefono existe en contractors
-        return contractorRepository.existsByPhoneNumber(Long.valueOf(phoneNumber));
-    }
+        return contractorRepository.existsByPhone(phone);
+    }*/
 
     @Override
     public List<Contractor> handle(GetAllContractorQuery query) {

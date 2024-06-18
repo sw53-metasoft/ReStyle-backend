@@ -8,7 +8,7 @@ import java.util.Optional;
 
 @Repository
 public interface ContractorRepository extends JpaRepository<Contractor, Long> {
-    Optional<Contractor> findByPhoneNumber(String ItemId);
-    Boolean existsByPhoneNumber(Long phoneNumber);
+    Optional<Contractor> findByPhone(String phone);
+    //Boolean existsByPhone(String phone);
 
 }

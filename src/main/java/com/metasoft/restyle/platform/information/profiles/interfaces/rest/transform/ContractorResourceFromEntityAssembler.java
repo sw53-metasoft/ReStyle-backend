@@ -11,7 +11,7 @@ public class ContractorResourceFromEntityAssembler {
         return new ContractorResource(
                 entity.getId(),
                 entity.getDescription(),
-                entity.getFormattedPhoneNumber()
+                entity.getPhone()
         );
     }
 

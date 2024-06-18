@@ -9,21 +9,7 @@ public class CreateContractorCommandFromResourceAssembler {
         public static CreateContractorCommand toCommandFromResource(CreateContractorResource resource) {
             return new CreateContractorCommand(
                     resource.description(),
-                    resource.phoneNumber()
+                    resource.phone()
             );
         }
 }
-
-
-/*
- public static CreateProfileCommand toCommandFromResource(CreateProfileResource resource) {
-        return new CreateProfileCommand(
-                resource.email(),
-                resource.password(),
-                resource.typeUser(),
-                resource.firstName(),
-                resource.paternalSurname(),
-                resource.maternalSurname()
-        );
-    }
- */
