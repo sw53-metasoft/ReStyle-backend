@@ -2,7 +2,7 @@ package com.metasoft.restyle.platform.iam.application.internal.queryservices;
 
 import com.metasoft.restyle.platform.iam.domain.model.entities.Role;
 import com.metasoft.restyle.platform.iam.domain.model.queries.GetAllRolesQuery;
-import com.metasoft.restyle.platform.iam.domain.model.queries.GetRoleByIdQuery;
+import com.metasoft.restyle.platform.iam.domain.model.queries.GetRoleByNameQuery;
 import com.metasoft.restyle.platform.iam.domain.services.RoleQueryService;
 import com.metasoft.restyle.platform.iam.infrastructure.persistence.jpa.repositories.RoleRepository;
 import org.springframework.stereotype.Service;
@@ -24,7 +24,7 @@ public class RoleQueryServiceImpl implements RoleQueryService {
     }
 
     @Override
-    public Optional<Role> handle(GetRoleByIdQuery query) {
-        return roleRepository.findById(query.roleId());
+    public Optional<Role> handle(GetRoleByNameQuery query) {
+        return roleRepository.findByName(query.name());
     }
 }
