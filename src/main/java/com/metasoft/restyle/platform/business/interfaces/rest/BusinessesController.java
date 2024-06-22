@@ -10,6 +10,7 @@ import com.metasoft.restyle.platform.business.interfaces.rest.resources.Business
 import com.metasoft.restyle.platform.business.interfaces.rest.resources.CreateBusinessResource;
 import com.metasoft.restyle.platform.business.interfaces.rest.transform.BusinessResourceFromEntityAssembler;
 import com.metasoft.restyle.platform.business.interfaces.rest.transform.CreateBusinessCommandFromResourceAssembler;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -20,6 +21,7 @@ import static org.springframework.http.HttpStatus.CREATED;
 
 @RestController
 @RequestMapping("/api/v1/businesses")
+@Tag(name = "Businesses", description = "Business Management Endpoints")
 public class BusinessesController {
 
     private final BusinessCommandService businessCommandService;

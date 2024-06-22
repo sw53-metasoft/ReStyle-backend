@@ -11,6 +11,7 @@ import com.metasoft.restyle.platform.projectRequest.interfaces.rest.resources.Cr
 import com.metasoft.restyle.platform.projectRequest.interfaces.rest.resources.ProjectRequestResource;
 import com.metasoft.restyle.platform.projectRequest.interfaces.rest.transform.CreateProjectRequestCommandFromResourceAssembler;
 import com.metasoft.restyle.platform.projectRequest.interfaces.rest.transform.ProjectRequestResourceFromEntityAssembler;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -22,6 +23,7 @@ import static org.springframework.http.HttpStatus.CREATED;
 
 @RestController
 @RequestMapping("/api/v1/project-requests")
+@Tag(name = "Project Requests", description = "Project Request Management Endpoints")
 public class ProjectRequestsController {
 
     private final ProjectRequestCommandService projectRequestCommandService;

@@ -9,6 +9,7 @@ import com.metasoft.restyle.platform.project.interfaces.rest.resources.CreatePro
 import com.metasoft.restyle.platform.project.interfaces.rest.resources.ProjectResource;
 import com.metasoft.restyle.platform.project.interfaces.rest.transform.CreateProjectCommandFromResourceAssembler;
 import com.metasoft.restyle.platform.project.interfaces.rest.transform.ProjectResourceFromEntityAssembler;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.context.annotation.Primary;
@@ -22,6 +23,7 @@ import static org.springframework.http.HttpStatus.CREATED;
 @RestController("com.metasoft.restyle.platform.project.interfaces.rest.ProjectsController")
 @RequestMapping("/api/v1/projects")
 @Primary
+@Tag(name = "Projects", description = "Project Management Endpoints")
 public class ProjectsController {
 
     private final ProjectCommandService projectCommandService;
