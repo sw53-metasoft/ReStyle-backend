@@ -20,8 +20,9 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 import org.springframework.web.cors.CorsConfiguration;
 
 import java.util.List;
-@Configuration
+
 @EnableMethodSecurity
+@Configuration
 public class WebSecurityConfiguration {
 
     private final UserDetailsService userDetailsService;
