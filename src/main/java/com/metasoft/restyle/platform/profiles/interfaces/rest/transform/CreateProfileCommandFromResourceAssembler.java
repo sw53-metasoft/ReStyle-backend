@@ -7,11 +7,12 @@ public class CreateProfileCommandFromResourceAssembler {
     public static CreateProfileCommand toCommandFromResource(CreateProfileResource resource) {
         return new CreateProfileCommand(
                 resource.email(),
-                resource.password(),
-                resource.typeUser(),
                 resource.firstName(),
                 resource.paternalSurname(),
-                resource.maternalSurname()
+                resource.maternalSurname(),
+                resource.phone(),
+                resource.description(),
+                resource.imageUrl()
         );
     }
 }

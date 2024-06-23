@@ -6,9 +6,12 @@ import com.metasoft.restyle.platform.profiles.domain.services.ProfileCommandServ
 import com.metasoft.restyle.platform.profiles.domain.services.ProfileQueryService;
 import com.metasoft.restyle.platform.profiles.interfaces.rest.resources.CreateProfileResource;
 import com.metasoft.restyle.platform.profiles.interfaces.rest.resources.ProfileResource;
+import com.metasoft.restyle.platform.profiles.interfaces.rest.resources.UpdateProfileResource;
 import com.metasoft.restyle.platform.profiles.interfaces.rest.transform.CreateProfileCommandFromResourceAssembler;
 import com.metasoft.restyle.platform.profiles.interfaces.rest.transform.ProfileResourceFromEntityAssembler;
+import com.metasoft.restyle.platform.profiles.interfaces.rest.transform.UpdateProfileCommandFromResourceAssembler;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import org.hibernate.sql.Update;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -38,17 +41,8 @@ public class ProfilesController {
     @PostMapping
     public ResponseEntity<ProfileResource> createProfile(@RequestBody CreateProfileResource resource) {
         var createProfileCommand = CreateProfileCommandFromResourceAssembler.toCommandFromResource(resource);
-        var profileId = profileCommandService.handle(createProfileCommand);
-        if (profileId == 0L) {
-            return ResponseEntity.badRequest().build();
-        }
-        var getProfileByIdQuery = new GetProfileByIdQuery(profileId);
-        var profile = profileQueryService.handle(getProfileByIdQuery);
-
-        if (profile.isEmpty()) {
-            return ResponseEntity.badRequest().build();
-        }
-
+        var profile = profileCommandService.handle(createProfileCommand);
+        if (profile.isEmpty()) return ResponseEntity.badRequest().build();
         var profileResource = ProfileResourceFromEntityAssembler.toResourceFromEntity(profile.get());
         return new ResponseEntity<>(profileResource, HttpStatus.CREATED);
     }
@@ -77,5 +71,24 @@ public class ProfilesController {
         var profiles = profileQueryService.handle(getAllProfilesQuery);
         var profileResources = profiles.stream().map(ProfileResourceFromEntityAssembler::toResourceFromEntity).collect(Collectors.toList());
         return ResponseEntity.ok(profileResources);
+    }
+
+    /**
+      Updates a Profile
+      @param profileId the id of the Profile to update
+     * @return the updated Profile resource
+     */
+    @PutMapping("/{profileId}")
+    public ResponseEntity<ProfileResource> updateProfile(@PathVariable Long profileId, @RequestBody UpdateProfileResource resource) {
+        var updateProfileCommand = UpdateProfileCommandFromResourceAssembler.toCommandFromResource(profileId, resource);
+        profileCommandService.handle(updateProfileCommand);
+
+        var getProfileByIdQuery = new GetProfileByIdQuery(profileId);
+        var profile = profileQueryService.handle(getProfileByIdQuery);
+
+        if (profile.isEmpty()) return ResponseEntity.notFound().build();
+
+        var profileResource = ProfileResourceFromEntityAssembler.toResourceFromEntity(profile.get());
+        return ResponseEntity.ok(profileResource);
     }
 }

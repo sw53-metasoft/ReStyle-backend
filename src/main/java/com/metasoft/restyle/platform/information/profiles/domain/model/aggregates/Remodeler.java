@@ -18,10 +18,6 @@ public class Remodeler extends AuditableAbstractAggregateRoot<Remodeler> {
     @Getter
     private Long id;
 
-    @Getter
-    @OneToOne
-    @JoinColumn(name = "user_id")
-    private Profile profile;
 
     @Getter
     private String phone;

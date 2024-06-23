@@ -17,15 +17,18 @@ public class ProfilesContextFacade {
         this.profileQueryService = profileQueryService;
     }
 
-    public Long createProfile(String email, String password, String typeUser, String firstName, String paternalSurname, String maternalSurname) {
-        var createProfileCommand = new CreateProfileCommand(email,password, typeUser, firstName, paternalSurname, maternalSurname);
-        return profileCommandService.handle(createProfileCommand);
+    public Long createProfile(String email, String firstName, String paternalSurname, String maternalSurname, String phone, String description, String imageUrl) {
+        var createProfileCommand = new CreateProfileCommand(email, firstName, paternalSurname, maternalSurname, phone, description, imageUrl);
+        var profile = profileCommandService.handle(createProfileCommand);
+        if (profile.isEmpty()) return 0L;
+        return profile.get().getId();
     }
 
-    public Long getProfileIdByEmail(String email) {
+    public Long fetchProfileIdByEmail(String email) {
         var getProfileByEmailQuery = new GetProfileByEmailQuery(new EmailAddress(email));
         var profile = profileQueryService.handle(getProfileByEmailQuery);
         if (profile.isEmpty()) return 0L;
         return profile.get().getId();
+
     }
 }
