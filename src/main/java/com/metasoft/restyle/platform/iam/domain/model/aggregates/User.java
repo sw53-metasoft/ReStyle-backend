@@ -11,6 +11,7 @@ import lombok.Setter;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 
 /**
@@ -59,7 +60,11 @@ public class User extends AuditableAbstractAggregateRoot<User> {
      * @return the user with the added role
      */
     public User addRole(Role role) {
-        this.roles.add(role);
+        if(role == null || role.getId() == null) {
+            this.roles.add(Role.getDefaultRole());
+        } else {
+            this.roles.add(role);
+        }
         return this;
     }
 
@@ -69,8 +74,11 @@ public class User extends AuditableAbstractAggregateRoot<User> {
      * @return the user with the added roles
      */
     public User addRoles(List<Role> roles) {
-        var validatedRoleSet = Role.validateRoleSet(roles);
-        this.roles.addAll(validatedRoleSet);
+        if (roles == null || roles.isEmpty()) {
+            this.roles.add(Role.getDefaultRole());
+        } else {
+            this.roles.addAll(roles);
+        }
         return this;
     }
 

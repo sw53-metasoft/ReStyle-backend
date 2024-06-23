@@ -53,7 +53,14 @@ public class Role {
      * @return the role
      */
     public static Role toRoleFromName(String name) {
-        return new Role(Roles.valueOf(name));
+        if (name == null || name.isBlank()) {
+            return getDefaultRole();
+        }
+        try {
+            return new Role(Roles.valueOf(name));
+        } catch (IllegalArgumentException e) {
+            throw new IllegalArgumentException("Invalid role name: " + name);
+        }
     }
 
     /**
