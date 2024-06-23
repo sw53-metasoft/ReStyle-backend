@@ -5,6 +5,7 @@ import com.metasoft.restyle.platform.iam.application.internal.outboundservices.t
 import com.metasoft.restyle.platform.iam.domain.model.aggregates.User;
 import com.metasoft.restyle.platform.iam.domain.model.commands.SignInCommand;
 import com.metasoft.restyle.platform.iam.domain.model.commands.SignUpCommand;
+import com.metasoft.restyle.platform.iam.domain.model.commands.UpdateUserCommand;
 import com.metasoft.restyle.platform.iam.domain.services.UserCommandService;
 import com.metasoft.restyle.platform.iam.infrastructure.persistence.jpa.repositories.RoleRepository;
 import com.metasoft.restyle.platform.iam.infrastructure.persistence.jpa.repositories.UserRepository;
@@ -35,9 +36,19 @@ public class UserCommandServiceImpl implements UserCommandService{
 
         var roles = command.roles().stream().map(role -> roleRepository.findByName(role.getName())
                 .orElseThrow(() -> new RuntimeException("Role not found"))).toList();
-        var user = new User(command.username(), hashingService.encode(command.password()), roles);
+        var user = new User(command.username(), hashingService.encode(command.password()), roles, command.email(), command.firstName(), command.paternalSurname(), command.maternalSurname(), command.description(), command.phone(), command.image());
         userRepository.save(user);
         return userRepository.findByUsername(command.username());
+    }
+
+    @Override
+    public Optional<User> hadle(UpdateUserCommand command) {
+        var user = userRepository.findById(command.id())
+                .orElseThrow(() -> new RuntimeException("User not found"));
+        user.updateUserInfo(command.email(), command.description(), command.phone(), command.image());
+
+        userRepository.save(user);
+        return userRepository.findById(command.id());
     }
 
     @Override

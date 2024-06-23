@@ -2,16 +2,16 @@ package com.metasoft.restyle.platform.iam.interfaces.rest;
 
 import com.metasoft.restyle.platform.iam.domain.model.queries.GetAllUsersQuery;
 import com.metasoft.restyle.platform.iam.domain.model.queries.GetUserByIdQuery;
+import com.metasoft.restyle.platform.iam.domain.services.UserCommandService;
 import com.metasoft.restyle.platform.iam.domain.services.UserQueryService;
+import com.metasoft.restyle.platform.iam.interfaces.rest.resources.UpdateUserResource;
 import com.metasoft.restyle.platform.iam.interfaces.rest.resources.UserResource;
+import com.metasoft.restyle.platform.iam.interfaces.rest.transform.UpdateUserCommandFromResourceAssembler;
 import com.metasoft.restyle.platform.iam.interfaces.rest.transform.UserResourceFromEntityAssembler;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -21,9 +21,11 @@ import java.util.List;
 public class UsersController {
 
     private final UserQueryService userQueryService;
+    private final UserCommandService userCommandService;
 
-    public UsersController(UserQueryService userQueryService) {
+    public UsersController(UserQueryService userQueryService, UserCommandService userCommandService) {
         this.userQueryService = userQueryService;
+        this.userCommandService = userCommandService;
     }
 
     @GetMapping
@@ -36,6 +38,18 @@ public class UsersController {
 
     @GetMapping(value = "/{userId}")
     public ResponseEntity<UserResource> getUserById(@PathVariable Long userId) {
+        var getUserByIdQuery = new GetUserByIdQuery(userId);
+        var user = userQueryService.handle(getUserByIdQuery);
+        if (user.isEmpty()) return ResponseEntity.notFound().build();
+        var userResource = UserResourceFromEntityAssembler.toResourceFromEntity(user.get());
+        return ResponseEntity.ok(userResource);
+    }
+
+    @PutMapping(value = "/{userId}")
+    public ResponseEntity<UserResource> updateUser(@PathVariable Long userId, @RequestBody UpdateUserResource resource) {
+        var updateUserCommand = UpdateUserCommandFromResourceAssembler.toCommandFromResource(userId, resource);
+        userCommandService.hadle(updateUserCommand);
+
         var getUserByIdQuery = new GetUserByIdQuery(userId);
         var user = userQueryService.handle(getUserByIdQuery);
         if (user.isEmpty()) return ResponseEntity.notFound().build();

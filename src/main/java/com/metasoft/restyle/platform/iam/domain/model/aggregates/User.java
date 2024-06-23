@@ -40,18 +40,47 @@ public class User extends AuditableAbstractAggregateRoot<User> {
             inverseJoinColumns = @JoinColumn(name = "role_id"))
     private Set<Role> roles;
 
+    @Getter
+    private String email;
+    @Getter
+    private String firstName;
+    @Getter
+    private String paternalSurname;
+    @Getter
+    private String maternalSurname;
+    @Getter
+    private String description;
+    @Getter
+    private String phone;
+    @Getter
+    private String image;
+
     public User() {
         this.roles = new HashSet<>();
     }
-    public User(String username, String password) {
+    public User(String username, String password, String email, String firstName, String paternalSurname, String maternalSurname, String description, String phone, String image) {
         this.username = username;
         this.password = password;
         this.roles = new HashSet<>();
+        this.email = email;
+        this.firstName = firstName;
+        this.paternalSurname = paternalSurname;
+        this.maternalSurname = maternalSurname;
+        this.description = description;
+        this.phone = phone;
+        this.image = image;
     }
 
-    public User(String username, String password, List<Role> roles) {
-        this(username, password);
+    public User(String username, String password, List<Role> roles, String email, String firstName, String paternalSurname, String maternalSurname, String description, String phone, String image) {
+        this(username, password, email, firstName, paternalSurname, maternalSurname, description, phone, image);
         addRoles(roles);
+    }
+
+    public void updateUserInfo(String email, String description, String phone, String image) {
+        this.email = email;
+        this.description = description;
+        this.phone = phone;
+        this.image = image;
     }
 
     /**
