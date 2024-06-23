@@ -1,6 +1,7 @@
 package com.metasoft.restyle.platform.project.interfaces.rest;
 
 import com.metasoft.restyle.platform.project.domain.model.aggregates.Project;
+import com.metasoft.restyle.platform.project.domain.model.queries.GetAllProjects;
 import com.metasoft.restyle.platform.project.domain.model.queries.GetAllProjectsByBusinessIdQuery;
 import com.metasoft.restyle.platform.project.domain.model.queries.GetProjectByIdQuery;
 import com.metasoft.restyle.platform.project.domain.services.ProjectCommandService;
@@ -40,6 +41,14 @@ public class ProjectsController {
         return project.map(p-> new ResponseEntity<>(ProjectResourceFromEntityAssembler.toResourceFromEntity(p), CREATED)).orElseGet(() -> ResponseEntity.badRequest().build());
     }
 
+    @GetMapping
+    public ResponseEntity<List<ProjectResource>> getAllProjects(){
+        var projects = projectQueryService.handle(new GetAllProjects());
+        if(projects.isEmpty()) return ResponseEntity.notFound().build();
+        var projectResources = projects.stream().map(ProjectResourceFromEntityAssembler::toResourceFromEntity).toList();
+        return ResponseEntity.ok(projectResources);
+    }
+
     @GetMapping("{id}")
     public ResponseEntity<ProjectResource> getProjectById(@PathVariable Long id){
         Optional<Project> project = projectQueryService.handle(new GetProjectByIdQuery(id));
@@ -54,7 +63,7 @@ public class ProjectsController {
         return ResponseEntity.ok(projectResources);
     }
 
-    @GetMapping
+    @GetMapping({"/search"})
     public ResponseEntity<?> getProjectsWithParameters(@RequestParam Map<String, String> parameters){
         if(parameters.containsKey("businessId")){
             return getAllProjectsByBusinessId(Long.parseLong(parameters.get("businessId")));

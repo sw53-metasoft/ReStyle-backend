@@ -1,6 +1,7 @@
 package com.metasoft.restyle.platform.project.application.internal.queryservices;
 
 import com.metasoft.restyle.platform.project.domain.model.aggregates.Project;
+import com.metasoft.restyle.platform.project.domain.model.queries.GetAllProjects;
 import com.metasoft.restyle.platform.project.domain.model.queries.GetAllProjectsByBusinessIdQuery;
 import com.metasoft.restyle.platform.project.domain.model.queries.GetProjectByIdQuery;
 import com.metasoft.restyle.platform.project.domain.services.ProjectQueryService;
@@ -19,6 +20,11 @@ public class ProjectQueryServiceImpl implements ProjectQueryService {
 
     public ProjectQueryServiceImpl(ProjectRepository projectRepository) {
         this.projectRepository = projectRepository;
+    }
+
+    @Override
+    public List<Project> handle(GetAllProjects query){
+        return projectRepository.findAll();
     }
 
     @Override
